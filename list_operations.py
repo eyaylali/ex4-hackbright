@@ -39,7 +39,7 @@ def last(input_list):
         Return the last element of the input list.
         [ A, B, C, D ] --> D
     """
-    return input_list.pop()
+    return input_list[-1]
 
 def init(input_list):
     """
@@ -121,8 +121,9 @@ def delete_third_and_seventh(input_list):
         Remove the third and seventh elements of the input list.
         [ A, B, C, D, E, F, G, H ] --> [ A, B, D, E, F, H ]
     """
-    input_list.pop(2)
-    input_list.pop(5)
+
+    del input_list[6]
+    del input_list[2]
     return input_list
 
 
@@ -132,7 +133,7 @@ def delete_middle(input_list):
         last two.
          [ A, B, C, D, E, F, G, H ] --> [ A, B, G, H ]
     """
-    input_list[3,-2] = []
+    input_list[2:-2] = []
     return input_list
 
 """
@@ -159,7 +160,11 @@ def custom_len(input_list):
     """
         like len(input_list), should return the number of items in the list
     """
-    pass
+    counter = 0
+    for item in input_list:
+        counter += 1
+    return counter
+
 
 # For the next four functions, get clever using slice operations described in the first half
 def custom_append(input_list, value):
@@ -167,70 +172,107 @@ def custom_append(input_list, value):
         like input_list.append(value), should add the value to the end of the list
         and return nothing
     """
-    pass
+    input_list[:] = input_list[:]+[value]
+    return
+    
 
 def custom_extend(input_list, second_list):
     """
         like input_list.extend(second_list), should append every item in the second 
         list to the end of the first list and return nothing
     """
-    pass
+    input_list[:] = input_list[:]+ second_list
+    return
 
 def custom_insert(input_list, index, value):
     """
         like input_list.insert(index, value), should insert (not replace) the value
         at the specified index of the input list and return nothing
     """
-    pass
+    input_list[index:index] = [value]
+    return
+    
 
 def custom_remove(input_list, value):
     """
         like input_list.remove(value), should remove the first item of the 
         value specified and return nothing
     """
-    pass
+    counter = 0
+    for item in input_list:
+        if item == value:
+            input_list[counter:counter+1] = []
+            return
+        counter += 1
+    return
 
 def custom_pop(input_list):
     """
         like input_list.pop(), should remove the last item in the list and 
         return it
     """
-    pass
+    item = input_list[-1]
+    input_list[:] = input_list[:-1]
+    return item
 
 def custom_index(input_list, value):
     """
         like input_list.index(value), should return the index of the first item 
         which matches the specified value
     """
-    pass
+    counter = 0
+    for item in input_list:
+        if item == value:
+            return counter
+        counter += 1
+
 
 def custom_count(input_list, value):
     """
         like input_list.count(value), should return the number of times the specified
         value appears in the list.
     """
-    pass
+    counter = 0
+    for item in input_list:
+        if item == value:
+            counter += 1
+    return counter
 
 def custom_reverse(input_list):
     """
         like input_list.reverse(), should reverse the elements of the original list
         and return nothing (we call this reversing "in place")
     """
-    pass
+    input_list[:] = input_list[::-1]
+    return
+
 
 def custom_contains(input_list, value):
     """
         like (value in input_list), should return True if the list contains the
         specified value and False if it does not 
     """
-    pass
+    for item in input_list:
+        if item == value:
+            return True
+    return False
+
 
 def custom_equality(some_list, another_list):
     """
         like (some_list == another_list), should return True if both lists contain
         the same values in the same indexes
     """
-    pass
+    index = 0
+    for item in some_list:
+        try:
+            if item != another_list[index]:
+                return False
+        except IndexError:
+            return False
+        index +=1
+    return True
+
 
 """
 Part 2 is finished! Required: Ask for a code review. Optional: High-Five
